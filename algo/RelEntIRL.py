@@ -1,4 +1,4 @@
-from utils import feature_averages
+from .utils import feature_averages
 import numpy as np
 
 class RelEntIRL:
@@ -22,6 +22,7 @@ class RelEntIRL:
             self.expert_feature += feature_averages(self.expert_demos[i])
         self.expert_feature /= len(self.expert_demos)
         return self.expert_feature
+
     
     def train(self,step_size=1e-4,num_iters=50000,print_every=5000):
         self.calculate_expert_feature()
@@ -41,4 +42,4 @@ class RelEntIRL:
             # One weird trick to ensure that the weights don't blow up the objective.
             self.weights = self.weights/np.linalg.norm(self.weights,keepdims=True)
             if i%print_every == 0:
-                print "Value of objective is: " + str(self.calculate_objective())
+                print("Value of objective is: " + str(self.calculate_objective()))
